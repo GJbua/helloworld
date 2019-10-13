@@ -1,2 +1,101 @@
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+#define N 100000+5
+struct Array
+{
+	int value;
+	int b;
+}a[N];
+int b[N];
+bool operator<(Array& a, Array& b)
+{
+	return a.value < b.value;
+}
+struct Ans
+{
+	int mini;
+	int p;
+}ans[N];
+struct Node
+{
+	int value;
+	int pos;
+	int prev; int next;
+}node[N];
+int tot, tail, head;
+void init()
+{
+	tot = 2;
+	head = 1; tail = 2;
+	node[head].next = tail;
+	node[tail].prev = head;
+	node[head].value = node[tail].value = -N;
+}
+void insert(int p, int value)
+{
+	int q = ++tot;
+	node[q].value = value;
+	node[q].prev = p;
+	node[q].next = node[p].next;
+	node[node[p].next].prev = q;
+	node[p].next = q;
 
-本地edit
+}
+void remove(int p)
+{
+	node[node[p].prev].next = node[p].next;
+	node[node[p].next].prev = node[p].prev;
+}
+void clear()
+{
+	memset(node, 0, sizeof(node));
+	tot = tail = head = 0;
+}
+int main()
+{
+	ios::sync_with_stdio(false);
+	int n;
+	cin >> n;
+	for (int i = 1; i <= n; i++)
+	{
+		cin >> a[i].value;
+		a[i].b = i;
+	}
+	sort(a + 1, a + n + 1);
+	init();
+	int cur = head;
+	for (int i = 1; i <= n; i++)
+	{
+		insert(cur, a[i].value);
+		cur = node[cur].next;
+		node[cur].pos = a[i].b;
+	}
+	for (int i = 1; i <= n; i++)
+	{
+		b[a[i].b] = i+2;
+	}
+	for (int i = n; i > 1; i--)
+	{
+		int val = node[b[i]].value;
+		int x = abs(val - node[node[b[i]].prev].value);
+		int y = abs(val - node[node[b[i]].next].value);
+		if (x > y)
+		{
+			ans[i].mini = y;
+			ans[i].p = node[node[b[i]].next].pos;
+		}
+		else
+		{
+			ans[i].mini = x;
+			ans[i].p = node[node[b[i]].prev].pos;
+		}
+		remove(b[i]);
+	}
+	for (int i = 2; i <= n; i++)
+	{
+		cout << ans[i].mini << ' ' << ans[i].p << endl;
+	}
+	return 0;
+}
