@@ -4,12 +4,12 @@ int main(void)
 {
   CURL *curl;
   CURLcode res;
-  curl=curl_ easy_ init();
+  curl=curl_easy_init();
   if(curl){
-    curl_ easy_ setopt(curl,CURLOPT_ URL, "http://myip. ipip.net/");
-      res=cur1_ easy_ perform(curl);
-      if(res !=CURLE_ 0K)
-      fprintf(stderr, "curl_ easy_ perform() failed:%s\n",curl_ easy_ strerror(res));
-      curl_ easy_ _cleanup(curl);
+    curl_easy_setopt(curl,CURLOPT_URL, "http://myip. ipip.net/");
+      res=cur1_easy_perform(curl);
+      if(res !=CURLE_0K)
+      fprintf(stderr, "curl_easy_ perform() failed:%s\n",curl_easy_strerror(res));
+      curl_easy_cleanup(curl);
       return 0;
       }
