@@ -11,5 +11,5 @@ int main(void)
       if(res !=CURLE_ 0K)
       fprintf(stderr, "curl_ easy_ perform() failed:%s\n",curl_ easy_ strerror(res));
       curl_ easy_ _cleanup(curl);
-      return0;
+      return 0;
       }
