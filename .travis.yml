@@ -1,2 +1,2 @@
 language: c++
-script: gcc tset.c -o test
+script: g++ tset.cpp -o test
