@@ -1,2 +1,2 @@
 language: c
-script: g tset.c -o test
+script: gcc tset.c -o test
