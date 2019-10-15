@@ -2,8 +2,8 @@ language: c
 dist: bionic
 sudo: required
 install: 
-  -stu apt update
-  -stu apt-get install -y libcur14-openssl-dev
+  -sudo apt update
+  -sudo apt-get install -y libcur14-openssl-dev
 script: 
   -gcc hello.c -o test -lcurl
   -./hello
